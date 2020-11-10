@@ -1,0 +1,165 @@
+import sys
+import sympy
+
+def func_1_expr():
+    """
+    x*sin(x) - 1 = 0
+    """
+    x = sympy.symbols('x')
+    return x*sympy.sin(x)-1.0
+
+def func_2_expr():
+    """
+    x^2 - 5 = 0
+    """
+    x = sympy.symbols('x')
+    return x**2.0 - 5.0
+
+def func_3_expr():
+    """
+    x^3 -3x + 2 = 0
+    """
+    x = sympy.symbols('x')
+    return x**3.0 - 3.0*x +2
+
+class _func():
+    """
+    计算一元函数值及导数值
+    """
+    def __init__(self, expr, eff=15):
+        """
+        初始化计算表达式
+        expr@表达式
+        eff@有效数字位数
+        """
+        self._expr = expr()
+        self._eff = eff
+        self._x = list(self._expr.free_symbols)[0]
+        self._diff_expr = sympy.diff(self._expr, self._x)
+
+    def value(self, x):
+        """
+        计算 func 值
+        """
+        expr = self._expr
+        return expr.subs('x', x).evalf(self._eff)
+
+    def diff_value(self, x):
+        """
+        计算导数值
+        """
+        expr = self._diff_expr
+        return expr.subs('x', x).evalf(self._eff)
+
+          
+
+def TrailValue(expr, a, b, e):
+    """
+    试值法
+    f@函数
+    a@区间下限
+    b@区间上限
+    e@容忍误差限
+    """
+    f = _func(expr)
+    fa_0 = f.value(a)
+    fb_0 = f.value(b)
+    res = 0
+    count = 0
+    if abs(fa_0) < e:
+        res = a
+    elif abs(fb_0) < e:
+        res = b
+    elif sympy.sign(fa_0) == sympy.sign(fb_0):
+        print('f(a) and f(b) 同号')
+        sys.exit()
+    else:
+        while True:
+            count = count + 1
+            fa = f.value(a)
+            fb = f.value(b)
+            c = b - ((b-a)/(fb - fa))*fb
+            fc = f.value(c)
+
+            # 更新有根区间
+            if sympy.sign(fa) == sympy.sign(fc):
+                a = c
+            else:
+                b = c
+
+            # 判断计算结束
+            if abs(f.value(c)) < e:
+                res = c
+                break
+
+    return res, count
+
+def Newton(expr, a, b, e):
+    """
+    牛顿法与二分法结合
+    f@函数
+    a@区间下限
+    b@区间上限
+    e@容忍误差限
+    """
+    f = _func(expr)
+    fa_0 = f.value(a)
+    fb_0 = f.value(b)
+    res = 0
+    count = 0
+    if abs(fa_0) < e:
+        res = a
+    elif abs(fb_0) < e:
+        res = b
+    elif sympy.sign(fa_0) == sympy.sign(fb_0):
+        print('f(a) and f(b) 同号')
+        sys.exit()
+    else:
+        x = a
+        while True:
+            count = count + 1
+            c = x - f.value(x)/f.diff_value(x)
+
+            # Newton与二分法结合，找下一个点
+            if (c > a) and (c < b):
+                x = c
+            else:
+                x = a+(b-a)/2
+
+            # 更新有根区间
+            if sympy.sign(f.value(a)) == sympy.sign(f.value(x)):
+                a = x
+            else:
+                b = x
+
+            # 判断计算结束
+            if abs(f.value(x)) < e:
+                res = x
+                break
+
+    return res, count
+        
+def main():
+    """
+    main
+    """
+    res_t, count_t = TrailValue(func_1_expr, 1, 2, 1.0/sympy.Pow(10, 5))
+    print('试值法 func 1 根: %.5f, 迭代次数: %d' % (res_t, count_t))
+
+    res_n, count_n = Newton(func_1_expr, 1, 2, 1.0/sympy.Pow(10, 5))
+    print('牛顿法 func 1 根: %.5f, 迭代次数: %d' % (res_n, count_n))
+
+    res_t, count_t = TrailValue(func_2_expr, 2, 3, 1.0/sympy.Pow(10, 5))
+    print('试值法 func 2 根: %.5f, 迭代次数: %d' % (res_t, count_t))
+
+    res_n, count_n = Newton(func_2_expr, 2, 3, 1.0/sympy.Pow(10, 5))
+    print('牛顿法 func 2 根: %.5f, 迭代次数: %d' % (res_n, count_n))
+
+    res_t, count_t = TrailValue(func_3_expr, -2.5, -1.5, 1.0/sympy.Pow(10, 5))
+    print('试值法 func 3 根: %.5f, 迭代次数: %d' % (res_t, count_t))
+
+    res_n, count_n = Newton(func_3_expr, -2.5, -1.5, 1.0/sympy.Pow(10, 5))
+    print('牛顿法 func 3 根: %.5f, 迭代次数: %d' % (res_n, count_n))
+
+if __name__ == "__main__":
+    main()
