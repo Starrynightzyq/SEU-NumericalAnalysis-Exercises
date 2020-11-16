@@ -3,12 +3,48 @@
 clc
 clear
 
+prompt = '请输入 N: ';
+N = input(prompt);
 
-data1_10_2 = SN_1(10);
-data2_10_2 = SN_2(10);
-fprintf('正向求和：2-10^2, sum is: %.10f\r\n', data1_10_2);
-fprintf('反向求和：10^2-2, sum is: %.10f\r\n', data2_10_2);
+data0 = SN_Real(N);
+data1 = SN_1(N);
+data2 = SN_2(N);
+fprintf('准确值:\t%.10f\n', data0);
+fprintf('正向求和:\t%.10f, 误差: %.10f\n', data1, abs(data0 - data1));
+fprintf('反向求和:\t%.10f, 误差: %.10f\n', data2, abs(data0 - data2));
 
+%% 画图
+clc
+clear
+
+prompt = '请输入 N: ';
+N = input(prompt);
+N_start = 101;
+
+x = N_start:N;
+y1 = zeros(1, (N-N_start+1));
+y2 = zeros(1, (N-N_start+1));
+
+tic
+for i = x
+    data0 = SN_Real(i);
+    data1 = SN_1(i);
+    data2 = SN_2(i);
+%     y1(i - N_start + 1) = abs(data0 - data1);
+%     y2(i - N_start + 1) = abs(data0 - data2);
+    y1(i - N_start + 1) = (data0 - data1);
+    y2(i - N_start + 1) = (data0 - data2);
+end
+toc
+
+figure
+plot(x, y1, x, y2);
+legend('从大到小', '从小到大');
+title('误差（准确值-计算值）')
+xlabel('N');
+ylabel('e');
+
+saveas(gcf,'e.jpg')%保存图像为文件
 
 %% ----------------------
 function res = f(N)
@@ -26,11 +62,11 @@ function sum = SN_1(N)
 % Syntax: res = SN_1(N)
 %
 % 正向求和，从 2 到 N
-    sum = single(0);
+    sum = 0;
     for i = 2:N
         sum = sum + f(i);
-%         disp(i);
     end
+    sum = single(sum);
 end
 
 function sum = SN_2(N)
@@ -39,11 +75,16 @@ function sum = SN_2(N)
 % Syntax: sum = SN_2(N)
 %
 % 反向求和，从 N 到 2
-    sum = single(0);
+    sum = 0;
     for i = 2:N
         sum = sum + f(N-i+2);
-        % disp(N-i+2);
     end
+    sum = single(sum);
+end
+
+function sum = SN_Real(N)
+%准确值
+    sum = single((3/2 - (1/N) - (1/(N-1)))/2);
 end
 
 
