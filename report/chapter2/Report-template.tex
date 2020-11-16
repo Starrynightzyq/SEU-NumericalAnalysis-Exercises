@@ -1,0 +1,45 @@
+% !Mode:: "TeX:UTF-8"
+%% 请使用 XeLaTeX 编译本文.
+% \documentclass{WHUBachelor}% 选项 forprint: 交付打印时添加, 避免彩色链接字迹打印偏淡. 即使用下一行:
+ \documentclass[forprint]{WHUBachelor}
+
+\begin{document}
+%%%%%%% 下面的内容, 据实填空.
+
+\miji{ }                                      % 密级. 没有就空着.
+\StudentNumber{220205764} % 填写自己的学号
+
+\title{数值分析上机报告 \\ 第二章}
+\author{周玉乾}                            % 作者名字
+\Cschoolname{微电子学院}          % 学院名
+\date{二〇二〇年十一月}                    % 日期, 要注意和英文日期一致!!
+\Edate{Nov, 2020}                       % 英文封面日期
+
+%-----------------------------------------------------------------------------
+\pdfbookmark[0]{封面}{title}         % 封面页加到 pdf 书签
+\maketitle
+\frontmatter
+\pagenumbering{Roman}              % 正文之前的页码用大写罗马字母编号.
+%-----------------------------------------------------------------------------
+%\include{includefile/frontmatter}    % 加入摘要, 申明.
+%==========================把目录加入到书签==============================%%%%%%
+%\pdfbookmark[0]{目录}{toc}
+%\tableofcontents
+\mainmatter %% 以下是正文
+%%%%%%%%%%%%%%%%%%%%%%%%%%%--------main matter-------%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\include{includefile/chapter1}
+\setcounter{chapter}{1}
+\include{includefile/chapter2}
+%\include{includefile/chapter3}
+
+
+%%%-------------- 附录. 不需要可以删除.-----------
+\appendix
+
+\include{includefile/chapter2_prog}
+
+\cleardoublepage
+\end{document}
+
+
+
