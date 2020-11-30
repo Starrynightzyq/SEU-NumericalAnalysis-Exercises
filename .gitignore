@@ -5,10 +5,19 @@
 !README.md
 
 !code/
-!code/*.py
-!code/*.m
-!code/*.cpp
-!code/*.nb
+!code/*
+!code/chapter1/
+!code/chapter1/*
+!code/chapter2/
+!code/chapter2/*
+!code/chapter3/
+!code/chapter3/*
+!code/chapter4/
+!code/chapter4/*
+# !code/*.py
+# !code/*.m
+# !code/*.cpp
+# !code/*.nb
 
 !report/
 
@@ -40,3 +49,5 @@
 !report/chapter3/includefile/*.tex
 
 .DS_Store
+.vscode
+__pycache__

@@ -52,7 +52,7 @@ def MGauss(A, b):
             if abs(A[i, k]) > maxabs:
                 p = i
                 maxabs = abs(A[i, k])
-        print('maxabs', maxabs)
+        # print('maxabs', maxabs)
         # 最大值为 0
         if maxabs == 0:
             print('Singular')
@@ -61,14 +61,14 @@ def MGauss(A, b):
         if p != k:
             A[[p,k],:] = A[[k,p],:]
             b[[p,k]] = b[[k,p]]
-        print('exchange r{0} and r{1}:\r\n'.format(k, p), A)
+        # print('exchange r{0} and r{1}:\r\n'.format(k, p), A)
         # 消元，将对角线以下变为 0
         for i in range(k+1, N):
             m_ik = A[i, k] / A[k, k]
             for j in range(0, N):
                 A[i, j] -= A[k, j] * m_ik
             b[i] -= b[k] * m_ik
-        print('After Elimination:\r\n', np.concatenate((A,np.asarray([b]).T), axis = 1))
+        # print('After Elimination:\r\n', np.concatenate((A,np.asarray([b]).T), axis = 1))
         
     if A[N-1, N-1] == 0:
         print('Singular')
@@ -94,24 +94,27 @@ def bring_back(A, b):
         X[k] = (b[k] - sigma) / A[k, k]
 
     return X
+
+# 列主元高斯消去求解
+def MGauss_Caculate(A, b):
+    A_np = np.asarray(A, dtype = float)
+    b_np = np.asarray(b, dtype = float)
+
+
+    # 列主元、回带
+    A_G, b_G = MGauss(A_np, b_np)
+    x_G = bring_back(A_G, b_G)
+
+    # print('A_G:b_G\r\n', np.concatenate((A_G,np.asarray([b_G]).T), axis = 1))
+
+    return x_G
         
 def main():
     """
     main
     """
 
-    A_np = np.asarray(A, dtype = float)
-    b_np = np.asarray(b, dtype = float)
-
-    # b_np = b_np.T
-
-    print('A:\r\n', A_np)
-    print('b:\r\n', b_np)
-
-    A_G, b_G = MGauss(A_np, b_np)
-    x_G = bring_back(A_G, b_G)
-
-    print('A_G:b_G\r\n', np.concatenate((A_G,np.asarray([b_G]).T), axis = 1))
+    x_G = MGauss_Caculate(A, b)
     print('x_G', x_G)
 
 
