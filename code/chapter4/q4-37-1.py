@@ -1,7 +1,7 @@
 '''
 Author: zyq
 Date: 2020-11-30 17:19:51
-LastEditTime: 2020-11-30 22:55:47
+LastEditTime: 2020-12-07 13:18:33
 LastEditors: Please set LastEditors
 Description: 数值分析上机题 课本 P195 37题 3次样条插值
 FilePath: /code/chapter4/q4-37-1.py
@@ -164,14 +164,14 @@ def calculate(OriginalInterval, paremeters, x):
 参数：data_x,data_y为离散的点.new_data_x,new_data_y为由拉格朗日插值函数计算的值。x为函数的预测值。
 返回值：空
 """
-def Draw(data_x,data_y,new_data_x,new_data_y):
+def Draw(data_x,data_y,new_data_x,new_data_y, title):
         plt.plot(new_data_x, new_data_y, label="拟合曲线", color="black")
         plt.scatter(data_x,data_y, label="离散数据",color="red")
         mpl.rcParams['font.sans-serif'] = ['SimHei']
         mpl.rcParams['axes.unicode_minus'] = False
         plt.title("三次样条函数")
         plt.legend(loc="upper left")
-        plt.savefig('my_spline.png', dpi=300)
+        plt.savefig(os.path.join(os.path.dirname(os.path.abspath(__file__)), title+'.png'), dpi=300)
         plt.show()
 
 def PrintS(parameterX):
@@ -194,7 +194,7 @@ def main():
     # 画图
     new_data_x = np.arange(x[0]-0.5, x[-1]+0.6, 0.1)
     new_data_y = calculate(x, parameterX, new_data_x)
-    Draw(x, y, new_data_x, new_data_y)
+    Draw(x, y, new_data_x, new_data_y, '三次样条插值')
 
     # 打印
     new_data_x = np.arange(0.5, 10.5, 1)
@@ -205,6 +205,10 @@ def main():
 
 if __name__ == "__main__":
 
+    # 获取当前文件路径
+    current_path = os.path.abspath(__file__)
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(current_path), '../')))
+    # print(sys.path)
     # 调用 chapter3 中的列主元高斯消去法
     from chapter3.q3 import MGauss_Caculate
 
