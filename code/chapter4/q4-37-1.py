@@ -1,7 +1,7 @@
 '''
 Author: zyq
 Date: 2020-11-30 17:19:51
-LastEditTime: 2020-12-07 13:18:33
+LastEditTime: 2020-12-09 17:24:59
 LastEditors: Please set LastEditors
 Description: 数值分析上机题 课本 P195 37题 3次样条插值
 FilePath: /code/chapter4/q4-37-1.py
@@ -177,9 +177,13 @@ def Draw(data_x,data_y,new_data_x,new_data_y, title):
 def PrintS(parameterX):
     n = int(len(parameterX)/4)
     print('S(x) = ')
-    for i in range(0, n):
-        print("{0}x^3 + {1}x^2 + {2}x + {3}".format(parameterX[i*4], parameterX[i*4+1], parameterX[i*4+2], parameterX[i*4+3]))
-    print('\n')
+    # for i in range(0, n):
+    #     print("{0}x^3 + {1}x^2 + {2}x + {3}".format(parameterX[i*4], parameterX[i*4+1], parameterX[i*4+2], parameterX[i*4+3]))
+    # print('\n\n')
+
+    for i in range(0,n):
+        print("%.6g & %.6g & %.6g & %.6g \\\\" % (parameterX[i*4], parameterX[i*4+1], parameterX[i*4+2], parameterX[i*4+3]))
+    print('\n\n')
         
 def main():
     x = [0,    1,    2,    3,    4,    5,    6,    7,    8,    9,    10]
@@ -201,7 +205,8 @@ def main():
     new_data_y = calculate(x, parameterX, new_data_x)
     # f4_5 = calculate(parameterX[8:12], [4.5])
     print(new_data_x)
-    print(new_data_y)
+    for i,data in enumerate(new_data_y):
+        print("%.6g & " % data)
 
 if __name__ == "__main__":
 
