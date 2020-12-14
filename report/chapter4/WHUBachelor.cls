@@ -238,7 +238,7 @@
 %%% ------ 目录设置 ------- %%%%
 \ctexset{contentsname={目\qquad 录}}
  
-\RequirePackage{tocloft} 
+\RequirePackage[subfigure]{tocloft} 
 \renewcommand\cftchapfont{\zihao{4}\bf}
 \renewcommand\cfttoctitlefont{\hfill\zihao{-2}\bf}
 \renewcommand\cftaftertoctitle{\hfill}
@@ -294,7 +294,11 @@
 % \begin{figure}[H]
 \RequirePackage{float}
 %\usepackage{caption}
-%\RequirePackage{graphicx} % sub 图片
+\RequirePackage{subfigure}
+% \RequirePackage{fixmetodonotes}
+% \RequirePackage[subfigure]{tocloft}
+% \RequirePackage{hyperref}
+% \RequirePackage{graphicx} % sub 图片
 
 %%===参考文献===%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{abbrv}        % 参考文献样式,  plain,unsrt,alpha,abbrv,chinesebst 等等

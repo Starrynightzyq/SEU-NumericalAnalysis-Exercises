@@ -1,7 +1,7 @@
 '''
 Author: zyq
 Date: 2020-12-01 09:56:13
-LastEditTime: 2020-12-07 14:46:18
+LastEditTime: 2020-12-14 22:02:45
 LastEditors: Please set LastEditors
 Description: Least squares approximation, 最佳平方逼近, 上机题 3
 FilePath: /numerical_analysis/code/chapter4/q4_2.py
@@ -43,13 +43,10 @@ def GetNormalEquation(m, x, y):
         AAline = []
         for i in range(0, m+1):
             tmp = np.dot(np.power(x, j), np.power(x, i))
-            # print(tmp)
             AAline.append(tmp)
         A.append(AAline)
         tmp = np.dot(y, np.power(x, j))
         b.append(tmp)
-
-    # print(A, b)
     return A, b
 
 '''
@@ -103,14 +100,14 @@ def CaculateInterval(c, xn):
 返回值：空
 """
 def Draw(data_x,data_y,new_data_x,new_data_y, title):
-        plt.plot(new_data_x, new_data_y, label="拟合曲线", color="black")
-        plt.scatter(data_x,data_y, label="离散数据",color="red")
-        mpl.rcParams['font.sans-serif'] = ['SimHei']
-        mpl.rcParams['axes.unicode_minus'] = False
-        plt.title(title)
-        plt.legend(loc="upper right")
-        plt.savefig(os.path.join(os.path.dirname(os.path.abspath(__file__)), title+'.png'), dpi=300)
-        plt.show()
+    plt.plot(new_data_x, new_data_y, label="拟合曲线", color="black")
+    plt.scatter(data_x,data_y, label="离散数据",color="red")
+    mpl.rcParams['font.sans-serif'] = ['SimHei']
+    mpl.rcParams['axes.unicode_minus'] = False
+    plt.title(title)
+    plt.legend(loc="upper right")
+    plt.savefig(os.path.join(os.path.dirname(os.path.abspath(__file__)), title+'.png'), dpi=300)
+    plt.show()
 
 '''
 description: 计算拟合误差 Q = \Sigma_{k=1}^{n} (q(x_k) - y_k)^2 
@@ -152,7 +149,7 @@ def Q1():
         # 写入文件
         with open(result_file, "a+") as fo:
             fo.write("\n\\********************************************************\\\n")
-            fo.write("{0}次最佳平方逼近, m = {1}\n".format(m, m))
+            fo.write("{0} 次最佳平方逼近, m = {1}\n".format(m, m))
             fo.write("x = ")
             for xi in x:
                 fo.write(str(xi))
@@ -166,10 +163,10 @@ def Q1():
             fo.write("近似函数：q(x) = c0 + c1*x + c2*x^2 + ... + cm*x^m \n")
             fo.write("c = ")
             for ci in c:
-                fo.write(str(ci))
+                fo.write(str(format(ci, '.6g')))
                 fo.write("\t")
             fo.write("\n")
-            fo.write("拟合误差：{0}\n".format(FittingErr))
+            fo.write("拟合误差：{0}\n".format(format(FittingErr, '.8g')))
             fo.write("\\********************************************************\\\n")
 
 # a+b÷x近似
@@ -189,7 +186,6 @@ def Q2_1():
     Draw(x, y, new_x, new_y, "a+b÷x近似")
     # 拟合误差
     FittingErr = GetFittingError(c, x1, y)
-    # print(FittingErr)
     # 写入文件
     with open(result_file, "w+") as fo:
         fo.write("\n\\********************************************************\\\n")
@@ -225,7 +221,6 @@ def Q2_2():
     Draw(x, y, new_x, new_y, "a+blnx近似")
     # 拟合误差
     FittingErr = GetFittingError(c, x1, y)
-    # print(FittingErr)
     # 写入文件
     with open(result_file, "w+") as fo:
         fo.write("\n\\********************************************************\\\n")
@@ -276,7 +271,6 @@ def Q2_3():
     Draw(x, y, new_x, new_y, "a*exp(bx)近似")
     # 拟合误差
     FittingErr = GetFittingError_q2_3(c, x, y)
-    # print(FittingErr)
     # 写入文件
     with open(result_file, "w+") as fo:
         fo.write("\n\\********************************************************\\\n")
@@ -327,7 +321,6 @@ def Q2_4():
     Draw(x, y, new_x, new_y, "1÷(a+bx)近似")
     # 拟合误差
     FittingErr = GetFittingError_q2_4(c, x, y)
-    # print(FittingErr)
     # 写入文件
     with open(result_file, "w+") as fo:
         fo.write("\n\\********************************************************\\\n")
@@ -346,14 +339,12 @@ def Q2_4():
         fo.write("拟合误差：{0}\n".format(FittingErr))
         fo.write("\\********************************************************\\\n")
 
-
 def main():
     Q1()
     Q2_1()
     Q2_2()
     Q2_3()
     Q2_4()
-
 
 if __name__ == "__main__":
 

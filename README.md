@@ -1,7 +1,7 @@
 <!--
  * @Author: zyq
  * @Date: 2020-11-09 13:42:50
- * @LastEditTime: 2020-12-01 10:14:07
+ * @LastEditTime: 2020-12-14 22:08:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /numerical_analysis/README.md
@@ -22,6 +22,13 @@
 Tex 模板来自武汉大学黄正华老师的[模板](http://aff.whu.edu.cn/huangzh/)，使用 xelatex 编译。
 
 ## Changelog
+
+### (2020/12/14)
+
+@zyq
+
+- 完成第四章上机报告
+- 第四章上机报告中加入了 *subfigure*
 
 ### (2020/12/7)
 
