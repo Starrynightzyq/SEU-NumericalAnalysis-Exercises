@@ -1,3 +1,11 @@
+'''
+Author: your name
+Date: 2020-12-21 17:15:07
+LastEditTime: 2020-12-28 19:11:05
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: /numerical_analysis/code/chapter5/q3_gauss_legendre.py
+'''
 import time
 import math
 import os, sys
@@ -33,7 +41,6 @@ def Get_Com_Gauss_Legendre(f, a, b, err):
         else:
             Int_Last = Int
             i += 1
-
 
 def expression0(x):
     return math.exp(-1 * x ** 2)

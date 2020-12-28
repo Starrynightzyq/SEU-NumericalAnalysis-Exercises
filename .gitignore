@@ -59,6 +59,15 @@
 !report/chapter4/includefile/
 !report/chapter4/includefile/*.tex
 
+!report/chapter5/
+!report/chapter5/*.tex
+!report/chapter5/*.cls
+!report/chapter5/*.pdf
+!report/chapter5/figures/
+!report/chapter5/figures/*
+!report/chapter5/includefile/
+!report/chapter5/includefile/*.tex
+
 .DS_Store
 .vscode
 __pycache__

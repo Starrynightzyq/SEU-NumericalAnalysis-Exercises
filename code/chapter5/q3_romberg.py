@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-12-21 15:14:01
-LastEditTime: 2020-12-21 22:14:41
+LastEditTime: 2020-12-28 21:28:37
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /numerical_analysis/code/chapter5/romberg_test.py
@@ -17,7 +17,8 @@ def print_row(lst, n):
     print('n =: ', n, ', ',' '.join('%11.8f, ' % x for x in lst))
     with open(RESULT_FILE, "a+") as fo:
         fo.write('n: {0}, '.format(n))
-        fo.write(''.join('%11.8f, ' % x for x in lst))
+        for x in lst:
+            fo.write('{0}, '.format(x))
         fo.write('\n')
 
 
@@ -60,9 +61,23 @@ def expression1(x):
     return math.atan(x)/(pow(x, 1.5))
 
 def main():
-    a = Improper_deal(expression1, 0, 1, (0.5e-2)/2.0)
+    a = Improper_deal(expression1, 0, 1, (0.5e-7)/2.0)
     print(a)
-    romberg(expression1, a, 1, (0.5e-2)/2.0)
+    with open(RESULT_FILE, "a+") as fo:
+        fo.write('a = {0}, '.format(a))
+        fo.write('\n')
+    print('int3')
+    int3 = romberg(expression1, 1e-4, 1, (0.5e-7)/6.0) # 
+    print('int2')
+    int2 = romberg(expression1, 1e-9, 1e-4, (0.5e-7)/6.0) #
+    print('int1')
+    int1 = romberg(expression1, a, 1e-9, (0.5e-7)/100.0) # 100.0
+    int_all = int1+int2+int3
+    print('result is {0} .'.format(int_all))
+    with open(RESULT_FILE, "a+") as fo:
+        fo.write('n: {0}, '.format(int_all))
+        fo.write('\n')
+
 
 if __name__ == "__main__":
     time_start = time.time()
