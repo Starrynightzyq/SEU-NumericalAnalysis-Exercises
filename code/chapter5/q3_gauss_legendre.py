@@ -1,8 +1,8 @@
 '''
 Author: your name
 Date: 2020-12-21 17:15:07
-LastEditTime: 2020-12-28 19:11:05
-LastEditors: your name
+LastEditTime: 2021-01-08 22:56:22
+LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /numerical_analysis/code/chapter5/q3_gauss_legendre.py
 '''
@@ -30,7 +30,7 @@ def Get_Com_Gauss_Legendre(f, a, b, err):
     Int_Last = 0
     i = 0
     while True:
-        Int = Com_Gauss_Legendre(f, 0, 1, 2 ** i)
+        Int = Com_Gauss_Legendre(f, a, b, 2 ** i)
 
         print('n: {0}, {1}'.format(2**i, Int))
         with open(RESULT_FILE, "a+") as fo:
@@ -41,7 +41,7 @@ def Get_Com_Gauss_Legendre(f, a, b, err):
         else:
             Int_Last = Int
             i += 1
-
+    
 def expression0(x):
     return math.exp(-1 * x ** 2)
 
@@ -49,8 +49,18 @@ def expression1(x):
     return math.atan(x)/(pow(x, 1.5))
 
 def main():
-    res = Get_Com_Gauss_Legendre(expression1, 0, 1, 0.5e-7)    
-    print(res)
+    print('int3')
+    int3, n3 = Get_Com_Gauss_Legendre(expression1, 1e-5, 1, (0.5e-7)/6.0) # 
+    print('int2')
+    int2, n2 = Get_Com_Gauss_Legendre(expression1, 1e-10, 1e-5, (0.5e-7)/6.0) #
+    print('int1')
+    int1, n1 = Get_Com_Gauss_Legendre(expression1, 0, 1e-10, (0.5e-7)/6.0) # 100.0
+    int_all = int1+int2+int3
+    n_times = 2**(n1+n2+n3)
+    print('result is {0} , n is {1}'.format(int_all, n_times))
+    with open(RESULT_FILE, "a+") as fo:
+        fo.write('result is {0} , n is {1}'.format(int_all, n_times))
+        fo.write('\n')
 
 if __name__ == "__main__":
     time_start = time.time()
